@@ -161,12 +161,12 @@ export default function QuoteForm() {
   return (
     <form onSubmit={submit} className="rounded-3xl bg-white border border-slate-200 shadow-card overflow-hidden">
       {/* Stepper */}
-      <div className="px-6 md:px-10 pt-8">
-        <div className="flex items-center justify-between gap-2">
+      <div className="px-4 sm:px-6 md:px-10 pt-6 sm:pt-8">
+        <div className="flex items-center justify-between gap-1 sm:gap-2">
           {STEPS.map((s, i) => (
-            <div key={s.id} className="flex-1 flex items-center gap-3">
+            <div key={s.id} className="flex-1 min-w-0 flex items-center gap-2 sm:gap-3">
               <div
-                className={`w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-sm ${
+                className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-display font-bold text-sm flex-shrink-0 ${
                   step >= s.id
                     ? "bg-brand-gradient text-white shadow-glow"
                     : "bg-slate-100 text-slate-500"
@@ -174,11 +174,11 @@ export default function QuoteForm() {
               >
                 {step > s.id ? <Check className="w-4 h-4" /> : s.id}
               </div>
-              <div className="flex-1">
-                <div className={`text-xs uppercase tracking-wider font-semibold ${step >= s.id ? "text-brand-700" : "text-slate-400"}`}>
+              <div className="flex-1 min-w-0">
+                <div className={`text-[10px] sm:text-xs uppercase tracking-wider font-semibold ${step >= s.id ? "text-brand-700" : "text-slate-400"}`}>
                   Step {s.id}
                 </div>
-                <div className={`text-sm font-display font-bold ${step >= s.id ? "text-slate-900" : "text-slate-400"}`}>
+                <div className={`text-xs sm:text-sm font-display font-bold truncate ${step >= s.id ? "text-slate-900" : "text-slate-400"}`}>
                   {s.label}
                 </div>
               </div>
@@ -190,7 +190,7 @@ export default function QuoteForm() {
         </div>
       </div>
 
-      <div className="p-6 md:p-10">
+      <div className="p-4 sm:p-6 md:p-10">
         {step === 1 && (
           <div>
             <h3 className="font-display font-extrabold text-2xl md:text-3xl text-slate-900">

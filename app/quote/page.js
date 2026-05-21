@@ -46,15 +46,15 @@ export default function QuotePage() {
 
         <div className="container-x relative">
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 min-w-0">
               <FadeIn>
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-brand-100 text-brand-700 text-xs font-semibold uppercase tracking-wider shadow-sm">
                   <Sparkles className="w-3.5 h-3.5" /> Request a Quote
                 </span>
-                <h1 className="mt-5 font-display font-extrabold text-4xl md:text-5xl tracking-tight leading-[1.05] text-slate-900">
+                <h1 className="mt-5 font-display font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight leading-[1.1] text-slate-900 break-words">
                   Tell us the goal. We'll bring the plan.
                 </h1>
-                <p className="mt-5 text-slate-600 text-lg leading-relaxed">
+                <p className="mt-5 text-slate-600 text-base sm:text-lg leading-relaxed">
                   Three quick steps — services, project, contact. We respond
                   within one business day with sharper questions, a rough scope,
                   and a clear next step.
@@ -68,7 +68,7 @@ export default function QuotePage() {
                       <div className="w-10 h-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center flex-shrink-0">
                         <p.icon className="w-5 h-5" />
                       </div>
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <div className="font-display font-bold text-slate-900 text-sm">{p.title}</div>
                         <div className="text-xs text-slate-600 mt-0.5">{p.text}</div>
                       </div>
@@ -78,7 +78,7 @@ export default function QuotePage() {
               </FadeIn>
             </div>
 
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-7 min-w-0">
               <FadeIn delay={0.1}>
                 <Suspense fallback={<div className="rounded-3xl bg-white border border-slate-200 p-10 animate-pulse h-[600px]" />}>
                   <QuoteForm />
