@@ -104,7 +104,9 @@ export const metadata = {
   },
   manifest: "/site.webmanifest",
   referrer: "origin-when-cross-origin",
-  // verification: { google: "<your-google-search-console-token>" },  // add after verifying in GSC
+  verification: {
+    google: "nDfzV_oUHTuZmstdicdXkooo3C2R31eLRdOmOUFVFbs",
+  },
 };
 
 export const viewport = {
