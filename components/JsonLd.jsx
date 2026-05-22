@@ -20,7 +20,7 @@
  *   https://schema.org/ItemList
  */
 
-const SITE_URL = "https://groovymarkwebx.com";
+const SITE_URL = "https://webx.groovymark.com";
 
 function Script({ data }) {
   return (

@@ -7,7 +7,7 @@ import CookieConsent from "@/components/CookieConsent";
 import Analytics from "@/components/Analytics";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 
-const SITE_URL = "https://groovymarkwebx.com";
+const SITE_URL = "https://webx.groovymark.com";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

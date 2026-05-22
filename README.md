@@ -126,7 +126,7 @@ Replace these with real content when ready.
 - Semantic HTML, alt text, and headings hierarchy throughout
 - Next.js Image with `remotePatterns` allowing Unsplash
 
-Before launch, replace `https://groovymarkwebx.com` placeholders in:
+Before launch, replace `https://webx.groovymark.com` placeholders in:
 
 - `app/layout.js` (metadataBase)
 - `app/sitemap.js`, `app/robots.js`

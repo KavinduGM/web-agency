@@ -89,7 +89,7 @@ export default async function OpengraphImage() {
             opacity: 0.85,
           }}
         >
-          <span>groovymarkwebx.com</span>
+          <span>webx.groovymark.com</span>
           <span style={{ display: "flex", alignItems: "center", gap: 16 }}>
             <span>★ 5.0 client rating</span>
             <span>·</span>

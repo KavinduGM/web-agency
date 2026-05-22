@@ -1,4 +1,4 @@
-const SITE = "https://groovymarkwebx.com";
+const SITE = "https://webx.groovymark.com";
 
 export default function robots() {
   return {

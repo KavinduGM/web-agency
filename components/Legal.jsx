@@ -44,7 +44,7 @@ export function LegalLayout({
             article={{
               title,
               description: description || subtitle,
-              url: `https://groovymarkwebx.com${url}`,
+              url: `https://webx.groovymark.com${url}`,
               datePublished: "2026-05-21",
               dateModified: lastUpdated,
               section: "Legal",

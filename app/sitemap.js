@@ -1,7 +1,7 @@
 import { ALL_SERVICE_SLUGS } from "@/lib/services";
 import { ALL_CASE_STUDY_SLUGS } from "@/lib/caseStudies";
 
-const SITE = "https://groovymarkwebx.com";
+const SITE = "https://webx.groovymark.com";
 
 /**
  * Sitemap routes are tuned by SEO weight:

@@ -72,7 +72,7 @@ export default function CaseStudyPage({ params }) {
   const study = getCaseStudyBySlug(params.slug);
   if (!study) notFound();
 
-  const url = `https://groovymarkwebx.com/portfolio/${study.slug}`;
+  const url = `https://webx.groovymark.com/portfolio/${study.slug}`;
   const breadcrumbs = [
     { name: "Home", url: "/" },
     { name: "Portfolio", url: "/portfolio" },
