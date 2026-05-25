@@ -33,6 +33,18 @@ model Post {
   coverImagePath String?
   tags           String[] @default([])
   publishedAt    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  metaTitle       String?
+  metaDescription String?
+  keywords        String[] @default([])
+  focusKeyword    String?
+  ogImagePath     String?
+  ogImageAlt      String?
+  readingMinutes  Int?
+  canonicalPath   String?
+  authorName      String?
+  authorUrl       String?
 
   @@unique([businessId, slug])
   @@index([businessId, publishedAt])
@@ -49,6 +61,18 @@ model CaseStudy {
   bodyMd         String
   coverImagePath String?
   publishedAt    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  metaTitle       String?
+  metaDescription String?
+  keywords        String[] @default([])
+  focusKeyword    String?
+  ogImagePath     String?
+  ogImageAlt      String?
+  readingMinutes  Int?
+  canonicalPath   String?
+  authorName      String?
+  authorUrl       String?
 
   @@unique([businessId, slug])
   @@index([businessId, publishedAt])
@@ -65,6 +89,18 @@ model Resource {
   downloadPath   String?
   coverImagePath String?
   publishedAt    DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  metaTitle       String?
+  metaDescription String?
+  keywords        String[] @default([])
+  focusKeyword    String?
+  ogImagePath     String?
+  ogImageAlt      String?
+  readingMinutes  Int?
+  canonicalPath   String?
+  authorName      String?
+  authorUrl       String?
 
   @@unique([businessId, slug])
   @@index([businessId, publishedAt])
@@ -77,9 +113,16 @@ model LandingPage {
   slug            String
   title           String
   sections        Json
+  publishedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
   metaTitle       String?
   metaDescription String?
-  publishedAt     DateTime @default(now())
+  keywords        String[] @default([])
+  focusKeyword    String?
+  ogImagePath     String?
+  ogImageAlt      String?
+  canonicalPath   String?
 
   @@unique([businessId, slug])
   @@index([businessId, publishedAt])
