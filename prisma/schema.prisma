@@ -1,0 +1,86 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// GroovyMark WebX — narrow read-only Prisma client over the shared
+// Content Automation database. Only the published-content models live here;
+// the automation system owns writes.
+// Keep models in sync with /Users/kavindugamlath/Desktop/Content Automation/
+//  prisma/schema.prisma — Post, CaseStudy, Resource, LandingPage.
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id   String @id
+  slug String @unique
+  name String
+}
+
+model Post {
+  id             String   @id
+  businessId     String
+  contentItemId  String   @unique
+  slug           String
+  title          String
+  excerpt        String   @default("")
+  bodyMd         String
+  coverImagePath String?
+  tags           String[] @default([])
+  publishedAt    DateTime @default(now())
+
+  @@unique([businessId, slug])
+  @@index([businessId, publishedAt])
+}
+
+model CaseStudy {
+  id             String   @id
+  businessId     String
+  contentItemId  String   @unique
+  slug           String
+  title          String
+  clientName     String
+  metric         String
+  bodyMd         String
+  coverImagePath String?
+  publishedAt    DateTime @default(now())
+
+  @@unique([businessId, slug])
+  @@index([businessId, publishedAt])
+}
+
+model Resource {
+  id             String   @id
+  businessId     String
+  contentItemId  String   @unique
+  slug           String
+  title          String
+  kind           String
+  bodyMd         String
+  downloadPath   String?
+  coverImagePath String?
+  publishedAt    DateTime @default(now())
+
+  @@unique([businessId, slug])
+  @@index([businessId, publishedAt])
+}
+
+model LandingPage {
+  id              String   @id
+  businessId      String
+  contentItemId   String   @unique
+  slug            String
+  title           String
+  sections        Json
+  metaTitle       String?
+  metaDescription String?
+  publishedAt     DateTime @default(now())
+
+  @@unique([businessId, slug])
+  @@index([businessId, publishedAt])
+}

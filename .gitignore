@@ -26,6 +26,9 @@ build
 # Vercel
 .vercel
 
+# Prisma generated client (regenerated on each install/build)
+prisma/generated
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
