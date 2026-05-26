@@ -80,7 +80,44 @@ module.exports = {
         card: "0 10px 30px -10px rgba(17, 24, 39, 0.10)",
         "card-hover": "0 25px 60px -15px rgba(109,40,217,0.25)",
       },
+      typography: ({ theme }) => ({
+        // Brand-tuned prose styles used by the blog article body.
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": theme("colors.slate.700"),
+            "--tw-prose-headings": theme("colors.slate.900"),
+            "--tw-prose-lead": theme("colors.slate.600"),
+            "--tw-prose-links": theme("colors.brand.700"),
+            "--tw-prose-bold": theme("colors.slate.900"),
+            "--tw-prose-quotes": theme("colors.slate.700"),
+            "--tw-prose-quote-borders": theme("colors.brand.500"),
+            "--tw-prose-bullets": theme("colors.brand.500"),
+            maxWidth: "none",
+            h2: {
+              fontFamily: theme("fontFamily.display").join(", "),
+              fontWeight: "800",
+              letterSpacing: "-0.01em",
+              marginTop: "2.4em",
+              marginBottom: "0.8em",
+            },
+            h3: {
+              fontFamily: theme("fontFamily.display").join(", "),
+              fontWeight: "700",
+            },
+            a: { fontWeight: "600", textDecoration: "none" },
+            "a:hover": { textDecoration: "underline" },
+            blockquote: {
+              borderLeftWidth: "4px",
+              fontStyle: "normal",
+              fontWeight: "500",
+              paddingLeft: "1.25em",
+            },
+            img: { borderRadius: theme("borderRadius.2xl") },
+            "ul > li::marker": { color: theme("colors.brand.500") },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

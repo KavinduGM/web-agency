@@ -31,7 +31,9 @@ model Post {
   excerpt        String   @default("")
   bodyMd         String
   coverImagePath String?
+  inlineImages   Json     @default("[]")
   tags           String[] @default([])
+  faq            Json     @default("[]")
   publishedAt    DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
