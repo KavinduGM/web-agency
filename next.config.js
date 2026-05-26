@@ -40,6 +40,9 @@ const CSP_DIRECTIVES = {
     "https://images.unsplash.com",
     "https://plus.unsplash.com",
     "https://crm.groovymark.com",
+    // Automation-generated blog / case-study / resource / landing-page media
+    // served by the Caddy `assets` container in the Content Automation stack.
+    "https://assets.groovymark.com",
   ],
   "connect-src": [
     "'self'",
