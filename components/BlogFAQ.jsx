@@ -1,9 +1,16 @@
 import { Plus } from "lucide-react";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 /**
  * Renders the structured FAQ list as expandable accordion items.
  * Uses native <details> so the markup ships SEO-friendly text without JS,
  * matching the FAQPage JSON-LD emitted in the parent route.
+ *
+ * Answers are rendered through ReactMarkdown so the automation tool's
+ * markdown links (e.g. "[ERP integration](/services/erp-integration)")
+ * become real anchor tags instead of literal text. Limited to the simple
+ * subset we expect: paragraphs and links.
  */
 export default function BlogFAQ({ items }) {
   if (!Array.isArray(items) || items.length === 0) return null;
@@ -29,9 +36,11 @@ export default function BlogFAQ({ items }) {
                     {it.q}
                   </span>
                 </summary>
-                <p className="mt-3 ml-8 text-slate-700 leading-relaxed">
-                  {it.a}
-                </p>
+                <div className="mt-3 ml-8 text-slate-700 leading-relaxed [&_p]:mb-3 last:[&_p]:mb-0">
+                  <ReactMarkdown components={faqMarkdownComponents}>
+                    {it.a ?? ""}
+                  </ReactMarkdown>
+                </div>
               </details>
             </li>
           ))}
@@ -40,3 +49,27 @@ export default function BlogFAQ({ items }) {
     </section>
   );
 }
+
+// Minimal component map. Anchors get brand styling; internal links use
+// Next's <Link> so client-side nav works inside the accordion.
+const faqMarkdownComponents = {
+  a({ href, children }) {
+    const isInternal = typeof href === "string" && href.startsWith("/");
+    const className = "text-brand-700 font-medium underline-offset-2 hover:underline";
+    if (isInternal) {
+      return (
+        <Link href={href} className={className}>
+          {children}
+        </Link>
+      );
+    }
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={className}>
+        {children}
+      </a>
+    );
+  },
+  p({ children }) {
+    return <p>{children}</p>;
+  },
+};

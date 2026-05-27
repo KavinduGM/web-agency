@@ -14,8 +14,11 @@ export default function BlogCard({ post }) {
       href={`/blog/${post.slug}`}
       className="group relative flex flex-col rounded-3xl border border-slate-200 bg-white overflow-hidden card-lift focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
     >
-      {/* Cover */}
-      <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+      {/* Cover — aspect-[3/2] matches the gpt-image-1 source (1536×1024).
+          Was aspect-[16/10] which cropped the brand headline on the left edge
+          ("SCALABLE WEB" → "ICALABLE WEB"). object-contain preserves the safe
+          zone the automation tool builds the cover around. */}
+      <div className="relative aspect-[3/2] bg-slate-100 overflow-hidden">
         {cover ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -23,7 +26,7 @@ export default function BlogCard({ post }) {
             alt={post.ogImageAlt || post.title}
             loading="lazy"
             decoding="async"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-brand-600 via-brand-500 to-accent-500" />

@@ -24,7 +24,7 @@ export default function InlineCTABanner({
   const { label, Icon } = resolveCta(ctaHref, ctaLabel);
 
   const card = (
-    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-accent-500 px-5 py-5 md:px-7 md:py-6 text-white shadow-xl">
+    <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-brand-700 via-brand-600 to-accent-500 px-6 py-7 md:px-9 md:py-9 text-white shadow-xl">
       {/* Decoration */}
       <div className="absolute -top-16 -right-12 w-44 h-44 bg-white/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-16 -left-12 w-44 h-44 bg-accent-400/30 rounded-full blur-3xl pointer-events-none" />
@@ -62,7 +62,7 @@ export default function InlineCTABanner({
     return card;
   }
   return (
-    <section className="my-8 lg:my-10">
+    <section className="my-14 lg:my-20">
       <div className="container-x">
         <div className="max-w-4xl mx-auto">{card}</div>
       </div>

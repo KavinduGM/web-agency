@@ -129,6 +129,9 @@ export default async function BlogPost({ params }) {
                     ) : (
                       <span className="font-medium">{post.authorName}</span>
                     )}
+                    {post.authorRole ? (
+                      <span className="text-slate-500">, {post.authorRole}</span>
+                    ) : null}
                   </span>
                 </>
               ) : null}
@@ -138,17 +141,21 @@ export default async function BlogPost({ params }) {
       </section>
 
       {/* ── Cover banner ─────────────────────────────────────────────── */}
+      {/* aspect-[3/2] matches the gpt-image-1 source (1536×1024). Was
+          aspect-[16/8] (2:1) which cropped the brand headline at the edges.
+          object-contain preserves the safe-zone composition the automation
+          tool builds covers around (white background blends seamlessly). */}
       {cover && (
         <section className="px-4">
           <FadeIn className="max-w-5xl mx-auto">
-            <div className="relative aspect-[16/8] rounded-3xl overflow-hidden border border-slate-200 shadow-card">
+            <div className="relative aspect-[3/2] rounded-3xl overflow-hidden border border-slate-200 shadow-card bg-white">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={cover}
                 alt={post.ogImageAlt || post.title}
                 loading="eager"
                 decoding="async"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
           </FadeIn>

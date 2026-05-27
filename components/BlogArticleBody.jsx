@@ -109,7 +109,7 @@ export default function BlogArticleBody({ bodyMd, inlineImages = [] }) {
 
       {/* Pre-FAQ CTA — placed between body and the FAQ block by the article page. */}
       {preFaqCta && (
-        <div className="my-10 -mx-2">
+        <div className="my-16 lg:my-20 -mx-2">
           <InlineCTABanner title={preFaqCta.title} ctaHref={preFaqCta.href} embedded />
         </div>
       )}
