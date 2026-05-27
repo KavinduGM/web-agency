@@ -207,7 +207,7 @@ export default async function BlogPost({ params }) {
               <h2 className="font-display font-extrabold text-2xl md:text-3xl text-slate-900 mb-8">
                 Keep reading
               </h2>
-              <div className="grid gap-6 md:grid-cols-3">
+              <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
                 {related.map((p) => <BlogCard key={p.id} post={p} />)}
               </div>
             </div>
