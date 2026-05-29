@@ -78,6 +78,31 @@ model CaseStudy {
   authorRole      String?
   authorUrl       String?
 
+  // Rich structured fields mirroring /lib/caseStudies.js — written by the
+  // automation pipeline at publish, consumed by /case-studies/[slug] page
+  // via the shared CaseStudyArticle component.
+  subtitle         String?
+  headline         String?
+  shortDescription String?
+  industry         String?
+  location         String?
+  projectType      String?
+  timeline         String?
+  category         String?
+  tags             String[] @default([])
+  problems         Json     @default("[]")
+  problemCallout   String?
+  solutionIntro    String?
+  pillars          Json     @default("[]")
+  results          Json     @default("[]")
+  techDelivered    String[] @default([])
+  metrics          Json     @default("[]")
+  testimonial      Json?
+  closing          Json?
+  finalCta         Json?
+  about            Json?
+  imageRoster      Json     @default("[]")
+
   @@unique([businessId, slug])
   @@index([businessId, publishedAt])
 }

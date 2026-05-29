@@ -1,64 +1,86 @@
 import { notFound } from "next/navigation";
-import ReactMarkdown from "react-markdown";
+import CaseStudyArticle from "@/components/CaseStudyArticle";
 import { getCaseStudy, listAllSlugs, assetUrl } from "@/lib/db";
-import { buildMetadata, caseStudyLd, breadcrumbLd, SITE_URL } from "@/lib/seo";
-import JsonLdScript from "@/components/JsonLdScript";
+import { buildMetadata } from "@/lib/seo";
+
+// DB-driven case study route. Reads from the CaseStudy table (written by
+// the automation pipeline) and feeds the same shared CaseStudyArticle
+// component the hardcoded /portfolio/[slug] route uses, so visual output
+// is identical.
+//
+// Schema mapping (DB column → study shape consumed by CaseStudyArticle):
+//   clientName     → client
+//   coverImagePath → cover (resolved to absolute URL via assetUrl)
+//   pillars  Json  → pillars    [{title, intro, featuresLabel, features[], images: [{src, alt, caption}]}]
+//   problems / results / metrics / testimonial / closing / finalCta / about — pass through
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
   const { caseStudies } = await listAllSlugs();
-  return caseStudies.map((c) => ({ slug: c.slug }));
+  return caseStudies.map((cs) => ({ slug: cs.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const cs = await getCaseStudy(params.slug);
-  if (!cs) return { title: "Not found", robots: { index: false } };
+  if (!cs) return {};
   return buildMetadata({
     row: cs,
     path: `/case-studies/${cs.slug}`,
-    fallbackTitle: `${cs.clientName} — ${cs.metric}`,
-    fallbackDescription: `How ${cs.clientName} achieved ${cs.metric} with GroovyMark WebX.`,
+    fallbackTitle: cs.title,
+    fallbackDescription: cs.shortDescription || cs.metaDescription,
     type: "article",
   });
 }
 
-export default async function CaseStudyPage({ params }) {
+export default async function CaseStudyDbPage({ params }) {
   const cs = await getCaseStudy(params.slug);
   if (!cs) notFound();
 
-  const ld = [
-    caseStudyLd({ row: cs, path: `/case-studies/${cs.slug}` }),
-    breadcrumbLd([
-      { name: "Home", url: SITE_URL },
-      { name: "Portfolio", url: "/portfolio" },
-      { name: cs.title, url: `/case-studies/${cs.slug}` },
-    ]),
-  ];
+  // pillars[].images carry RELATIVE asset paths in the DB — resolve to
+  // public URLs that <Image src=...> can fetch through the assets host.
+  const pillars = (cs.pillars ?? []).map((p) => ({
+    ...p,
+    images: (p.images ?? []).map((img) => ({
+      ...img,
+      src: typeof img.src === "string" ? (assetUrl(img.src) ?? img.src) : img.src,
+    })),
+  }));
+
+  const study = {
+    slug: cs.slug,
+    title: cs.title,
+    subtitle: cs.subtitle ?? "",
+    headline: cs.headline ?? cs.shortDescription ?? cs.metaDescription ?? "",
+    shortDescription: cs.shortDescription ?? cs.metaDescription ?? "",
+    client: cs.clientName,
+    clientType: cs.category ?? null,
+    industry: cs.industry ?? "",
+    location: cs.location ?? "",
+    projectType: cs.projectType ?? "",
+    timeline: cs.timeline ?? "",
+    category: cs.category ?? "Case Study",
+    cover: cs.coverImagePath ? (assetUrl(cs.coverImagePath) ?? cs.coverImagePath) : null,
+    tags: cs.tags ?? [],
+    metrics: cs.metrics ?? [],
+    testimonial: cs.testimonial ?? null,
+    problemIntro: cs.problemCallout ?? cs.shortDescription ?? "",
+    problems: cs.problems ?? [],
+    problemCallout: cs.problemCallout ?? "",
+    solutionIntro: cs.solutionIntro ?? "",
+    pillars,
+    results: cs.results ?? [],
+    techDelivered: cs.techDelivered ?? [],
+    closing: cs.closing ?? null,
+    finalCta: cs.finalCta ?? null,
+    about: cs.about ?? null,
+  };
 
   return (
-    <>
-      <JsonLdScript data={ld} />
-      <article className="mx-auto max-w-3xl px-4 py-16 prose prose-zinc">
-        <nav aria-label="Breadcrumb" className="not-prose text-xs text-gray-500 mb-4">
-          <a href="/" className="hover:underline">Home</a> ›{" "}
-          <a href="/portfolio" className="hover:underline">Portfolio</a> ›{" "}
-          <span aria-current="page">{cs.title}</span>
-        </nav>
-        <div className="not-prose text-xs uppercase tracking-wide text-gray-500">Case study · {cs.clientName}</div>
-        <h1>{cs.title}</h1>
-        <p className="text-lg text-gray-700"><strong>Outcome:</strong> {cs.metric}</p>
-        {cs.coverImagePath && (
-          <img
-            src={assetUrl(cs.coverImagePath)}
-            alt={cs.ogImageAlt || `${cs.clientName} case study`}
-            className="rounded-lg w-full h-auto"
-            loading="eager"
-            decoding="async"
-          />
-        )}
-        <ReactMarkdown>{cs.bodyMd}</ReactMarkdown>
-      </article>
-    </>
+    <CaseStudyArticle
+      study={study}
+      basePath="/case-studies"
+      datePublished={cs.publishedAt?.toISOString?.() ?? undefined}
+    />
   );
 }
